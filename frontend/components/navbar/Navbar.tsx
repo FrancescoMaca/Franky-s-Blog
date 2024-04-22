@@ -1,39 +1,11 @@
 'use client'
 import Image from "next/image";
-import { useEffect, useState } from "react";
-import { AnimatePresence, AnimationControls, Variants, animationControls, motion } from "framer-motion";
+import { useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 
 export default function Navbar() {
 
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const menuAnimationControl = animationControls()
-
-  const menuVariants = {
-    bgInitial: { opacity: 0, backdropFilter: 'blur(0px)'},
-    bgOnShow: { opacity: 1, backdropFilter: 'blur(10px)'},
-    bgOnExit: { opacity: 0, backdropFilter: 'blur(0px)', transition: { duration: 0.5 }},
-    menuEntryInitial: { translateY: -100, opacity: 0 },
-    menuEntryEnter: { translateY: 0, opacity: 1, transition: { duration: 0.5, delay: 0.15, type: 'spring', stiffness: 120, damping: 10 }},
-    menuEntryExit: { translateY: 100, opacity: 0, transition: { duration: 0.5 }}
-  };
-
-
-  useEffect(() => {
-
-    // if (isMenuOpen) {
-    //   menuAnimationControl.start('bgOnShow')
-    //   menuAnimationControl.start('menuEntryEnter')
-    // }
-    // else {
-    //   menuAnimationControl.start('bgOnExit')
-    //   menuAnimationControl.start('menuEntryExit')
-    // }
-
-  }, [isMenuOpen])
-
-  const closeMenu = () => {
-    setIsMenuOpen(false)
-  }
 
   return (
     <div className="flex justify-between items-center">
@@ -50,22 +22,22 @@ export default function Navbar() {
               exit={{ opacity: 0, backdropFilter: 'blur(0px)', transition: { duration: 1 }}}
             />
             <div className="flex flex-col items-center justify-center h-full z-50">
-              <MenuEntry 
+              <motion.a 
                 initial={{ translateY: -100, opacity: 0 }}
                 animate={{ translateY: 0, opacity: 1, transition: { duration: 0.5, type: 'spring', stiffness: 120, damping: 10 }}}
-                exit={{ translateY: 100, opacity: 0, transition: { duration: 0.5, type: 'spring', stiffness: 120, damping: 10 }}} text="Home"
-              />
-              <MenuEntry 
+                exit={{ translateY: 100, opacity: 0, transition: { duration: 0.5, type: 'spring', stiffness: 120, damping: 10 }}}
+              >Home</motion.a>
+              <motion.a 
                 initial={{ translateY: -100, opacity: 0 }}
                 animate={{ translateY: 0, opacity: 1, transition: { duration: 0.5, delay: 0.15, type: 'spring', stiffness: 120, damping: 10 }}}
-                exit={{ translateY: 100, opacity: 0, transition: { duration: 0.5, delay: 0.15, type: 'spring', stiffness: 120, damping: 10 }}} text="Saved"
-              />
-              <MenuEntry 
+                exit={{ translateY: 100, opacity: 0, transition: { duration: 0.5, delay: 0.15, type: 'spring', stiffness: 120, damping: 10 }}}
+              >Saved</motion.a>
+              <motion.a 
                 initial={{ translateY: -100, opacity: 0 }}
                 animate={{ translateY: 0, opacity: 1, transition: { duration: 0.5, delay: 0.3, type: 'spring', stiffness: 120, damping: 10 }}}
-                exit={{ translateY: 100, opacity: 0, transition: { duration: 0.5, delay: 0.3, type: 'spring', stiffness: 120, damping: 10 }}} text="Account"
-              />
-              <motion.button onClick={closeMenu} className="text-4xl py-10"
+                exit={{ translateY: 100, opacity: 0, transition: { duration: 0.5, delay: 0.3, type: 'spring', stiffness: 120, damping: 10 }}}
+              >Account</motion.a>
+              <motion.button onClick={() => setIsMenuOpen(false)} className="text-4xl py-10"
                 initial={{ translateY: -100, opacity: 0 }}
                 animate={{ translateY: 0, opacity: 1, transition: { duration: 0.5, delay: 0.45, type: 'spring', stiffness: 120, damping: 10 }}}
                 exit={{ translateY: 100, opacity: 0, transition: { duration: 0.5, delay: 0.45, type: 'spring', stiffness: 120, damping: 10 }}}
@@ -77,17 +49,5 @@ export default function Navbar() {
         )}
       </AnimatePresence>
     </div>
-  );
-}
-
-function MenuEntry({ initial, animate, exit, text }: { initial: any, animate: any, exit: any, text: string }) {
-  return (
-    <motion.a href="#" className="text-4xl py-10"
-      initial={initial}
-      animate={animate}
-      exit={exit}
-    >
-      {text}
-    </motion.a>
   );
 }
