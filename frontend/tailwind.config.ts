@@ -8,6 +8,10 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      backgroundImage: {
+        folder: 'url(\'/folder.svg\')',
+        'folder-filled': 'url(\'/folder-filled.svg\')'
+      },
       colors: {
         dark: '#212121',
         gray: '#676767',
@@ -16,6 +20,10 @@ const config: Config = {
       },
       fontFamily: {
         main: ['Roboto Condensed']
+      },
+      fontSize: {
+        mobile: '1rem',
+        tablet: '1.5rem'
       }
     },
   },
